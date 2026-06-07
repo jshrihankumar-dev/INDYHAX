@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# Before They Were Gone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A frontend-only hackathon demo that helps someone write a low-pressure message to reconnect with a person they have lost contact with.
 
 ## Available Scripts
 
-In the project directory, you can run:
+Run these from the `bridge/` directory.
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Starts the development server at [http://localhost:3000](http://localhost:3000).
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the production app into the `build/` folder.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm test`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Runs the Create React App test runner.
 
-### `npm run eject`
+## OpenAI API Key
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The app uses the OpenAI Responses API when `REACT_APP_OPENAI_API_KEY` is available.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Create a local `.env` file inside `bridge/` when you want live AI output:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+REACT_APP_OPENAI_API_KEY=your_api_key_here
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+If no key is present, the app automatically uses demo backup output so the hackathon demo still works without Wi-Fi or credentials.
 
-## Learn More
+## Demo Flow
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Click `Try an Example`.
+2. Click `Generate Message`.
+3. Review the generated message, reason, and warning.
+4. Click `Copy`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Notes
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This is intentionally frontend-only for the hackathon. Do not use it as-is for production with secret API keys, because browser environment variables are visible to users.
