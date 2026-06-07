@@ -2,12 +2,19 @@ import { useState } from "react";
 import { buildPrompt } from "../utils/buildPrompt";
 import { parseResponse } from "../utils/parseResponse";
 
-export function useOpenAIAPI() {
+export function useClaudeAPI() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const generate = async (formData) => {
+    const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
+
+    if (!apiKey) {
+      setError("Missing OpenAI API key. Add REACT_APP_OPENAI_API_KEY to bridge/.env and restart the dev server.");
+      return;
+    }
+
     setLoading(true);
     setError(null);
     try {
@@ -15,7 +22,7 @@ export function useOpenAIAPI() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer YOUR_OPENAI_KEY_HERE`
+          "Authorization": `Bearer ${apiKey}`
         },
         body: JSON.stringify({
           model: "gpt-4o",
