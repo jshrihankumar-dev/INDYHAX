@@ -7,7 +7,7 @@
 - [ ] Install `react-hot-toast`
 - [ ] Build input form
 - [ ] Build tone selector
-- [ ] Build Claude API hook
+- [ ] Build OpenAI API hook
 - [ ] Build prompt generator
 - [ ] Build response parser
 - [ ] Display generated message, reasoning, and warning
@@ -35,4 +35,3 @@
 - [ ] Practice demo in under 2 minutes
 - [ ] Practice pitch in under 30 seconds
 - [ ] Have backup screenshots or sample output ready
-

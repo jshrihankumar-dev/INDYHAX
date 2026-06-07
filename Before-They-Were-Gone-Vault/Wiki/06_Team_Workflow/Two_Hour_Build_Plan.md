@@ -4,7 +4,7 @@
 
 | Person | Owns |
 | --- | --- |
-| Shrihan | Claude API logic, prompt engineering, state management |
+| Shrihan | OpenAI API logic, prompt engineering, state management |
 | Teammate | UI, styling, input form, output display |
 
 ## 0:00-0:15 Setup
@@ -12,7 +12,7 @@
 - Create React app
 - Install dependencies
 - Confirm project runs
-- Create branch split
+- Use a shared branch
 
 Commands:
 
@@ -22,19 +22,12 @@ cd bridge
 npm install framer-motion react-hot-toast
 ```
 
-Branches:
-
-```bash
-git checkout -b shrihan/api-logic
-git checkout -b teammate/ui
-```
-
 ## 0:15-1:30 Parallel Build
 
 Shrihan:
 
 - `buildPrompt.js`
-- `useClaudeAPI.js`
+- `useOpenAIAPI.js`
 - `parseResponse.js`
 - wire API into `App.js`
 
@@ -47,7 +40,7 @@ Teammate:
 
 ## 1:30-1:50 Merge and Polish
 
-- Merge branches
+- Merge work directly into the shared branch
 - Fix prop mismatches
 - Add toast on copy
 - Add example autofill
@@ -60,4 +53,3 @@ Teammate:
 - Practice pitch
 - Check API key
 - Prepare backup output
-

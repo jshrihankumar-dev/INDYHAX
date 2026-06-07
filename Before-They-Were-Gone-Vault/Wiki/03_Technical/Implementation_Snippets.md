@@ -32,14 +32,14 @@ Context:
 }
 ```
 
-## `useClaudeAPI.js`
+## `useOpenAIAPI.js`
 
 ```js
 import { useState } from "react";
 import { buildPrompt } from "../utils/buildPrompt";
 import { parseResponse } from "../utils/parseResponse";
 
-export function useClaudeAPI() {
+export function useOpenAIAPI() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -49,18 +49,15 @@ export function useClaudeAPI() {
     setError(null);
 
     try {
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
+      const response = await fetch("https://api.openai.com/v1/responses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": "YOUR_KEY_HERE",
-          "anthropic-version": "2023-06-01",
-          "anthropic-dangerous-direct-browser-access": "true"
+          "Authorization": "Bearer YOUR_OPENAI_API_KEY"
         },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          messages: [{ role: "user", content: buildPrompt(formData) }]
+          model: "gpt-5.1-chat-latest",
+          input: buildPrompt(formData)
         })
       });
 
@@ -83,7 +80,7 @@ export function useClaudeAPI() {
 ```js
 export function parseResponse(data) {
   try {
-    const text = data.content[0].text;
+    const text = data.output_text || data.output?.[0]?.content?.[0]?.text || "";
     const clean = text.replace(/```json|```/g, "").trim();
     return JSON.parse(clean);
   } catch {
@@ -99,12 +96,12 @@ export function parseResponse(data) {
 ## `App.js`
 
 ```js
-import { useClaudeAPI } from "./hooks/useClaudeAPI";
+import { useOpenAIAPI } from "./hooks/useOpenAIAPI";
 import InputForm from "./components/InputForm";
 import ResultCard from "./components/ResultCard";
 
 export default function App() {
-  const { result, loading, error, generate } = useClaudeAPI();
+  const { result, loading, error, generate } = useOpenAIAPI();
 
   return (
     <div className="app">
@@ -116,4 +113,3 @@ export default function App() {
   );
 }
 ```
-

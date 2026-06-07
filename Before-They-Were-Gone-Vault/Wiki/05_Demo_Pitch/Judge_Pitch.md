@@ -14,5 +14,4 @@ Loneliness and social disconnection are real public health concerns. This projec
 
 ## Technical Framing
 
-We built a React app that uses structured prompting with Claude to generate a reconnection message, explanation, and emotional warning as parseable JSON.
-
+We built a React app that uses structured prompting with OpenAI to generate a reconnection message, explanation, and emotional warning as parseable JSON.

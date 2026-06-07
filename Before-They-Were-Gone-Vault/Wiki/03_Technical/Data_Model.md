@@ -26,7 +26,7 @@ type GeneratedResult = {
 ## UI State
 
 ```ts
-type ClaudeState = {
+type OpenAIState = {
   result: GeneratedResult | null;
   loading: boolean;
   error: string | null;
@@ -36,4 +36,3 @@ type ClaudeState = {
 ## Privacy Note
 
 Do not store form data in local storage for the MVP unless the team explicitly decides that saved drafts are worth the privacy tradeoff.
-

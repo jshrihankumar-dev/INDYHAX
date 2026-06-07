@@ -11,7 +11,7 @@ src/
     ToneSelector.js
     BridgeVisual.js
   hooks/
-    useClaudeAPI.js
+    useOpenAIAPI.js
   utils/
     buildPrompt.js
     parseResponse.js
@@ -23,7 +23,7 @@ src/
 - `ResultCard.js`: teammate
 - `ToneSelector.js`: teammate
 - `BridgeVisual.js`: teammate
-- `useClaudeAPI.js`: Shrihan
+- `useOpenAIAPI.js`: Shrihan
 - `buildPrompt.js`: Shrihan
 - `parseResponse.js`: Shrihan
 - `App.js`: merge point
@@ -31,4 +31,3 @@ src/
 ## Notes
 
 Keep the files small. The fastest path is to make each component responsible for one thing and merge through props.
-

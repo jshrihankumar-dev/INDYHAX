@@ -4,7 +4,7 @@
 
 - Relationship context form
 - Tone selector
-- Claude-generated reconnection message
+- OpenAI-generated reconnection message
 - Explanation of why the message works
 - Warning about what to prepare for
 - Copy-to-clipboard button
@@ -42,4 +42,3 @@
 - Backend database
 - Complex authentication
 - Long-term conversation coaching
-

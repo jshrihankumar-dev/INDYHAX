@@ -1,13 +1,8 @@
 # Branching and Roles
 
-## Branches
+## Workflow
 
-- `shrihan/api-logic`
-- `teammate/ui`
-
-## Merge Strategy
-
-Merge at the 1:30 mark. Do not wait until the final minutes. The likely conflict point is `App.js`.
+Work from one shared branch unless the team explicitly decides otherwise. The likely integration point is `App.js`.
 
 ## Shrihan Responsibilities
 
@@ -49,4 +44,3 @@ where `result` has:
   warning: string
 }
 ```
-

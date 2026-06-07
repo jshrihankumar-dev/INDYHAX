@@ -1,0 +1,383 @@
+:root {
+  --amber: #d19a45;
+  --amber-soft: #fff0cf;
+  --bg: #eef1ed;
+  --border: #d2d8d0;
+  --deep: #173a36;
+  --green: #24524a;
+  --ink: #172522;
+  --muted: #66736e;
+  --panel: #fffaf1;
+  --teal: #346d78;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background:
+    linear-gradient(130deg, rgba(36, 82, 74, 0.12), transparent 32%),
+    linear-gradient(210deg, rgba(209, 154, 69, 0.18), transparent 34%),
+    var(--bg);
+  color: var(--ink);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding: 28px;
+}
+
+.app-layout {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1.08fr) minmax(330px, 0.92fr);
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.workspace-panel,
+.output-panel {
+  background: rgba(255, 250, 241, 0.88);
+  border: 1px solid rgba(36, 82, 74, 0.16);
+  border-radius: 8px;
+  box-shadow: 0 24px 65px rgba(23, 37, 34, 0.12);
+  min-height: calc(100vh - 56px);
+  padding: 28px;
+}
+
+.output-panel {
+  align-content: start;
+  display: grid;
+  gap: 14px;
+}
+
+.intro {
+  max-width: 630px;
+}
+
+.eyebrow {
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  color: var(--deep);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.3rem, 6vw, 5.2rem);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 0.95;
+  margin-bottom: 16px;
+  max-width: 720px;
+}
+
+h2 {
+  color: var(--deep);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 1.08;
+  margin-bottom: 10px;
+}
+
+h3 {
+  color: var(--deep);
+  font-size: 0.95rem;
+  margin-bottom: 7px;
+}
+
+.intro p:last-child,
+.empty-result p,
+.result-insight p,
+.result-warning p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.bridge-visual {
+  margin: 18px 0 10px;
+  max-width: 720px;
+}
+
+.bridge-visual svg {
+  display: block;
+  height: auto;
+  overflow: visible;
+  width: 100%;
+}
+
+.bridge-deck {
+  opacity: 0.52;
+}
+
+.input-form {
+  display: grid;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.form-row {
+  display: grid;
+  gap: 9px;
+}
+
+.two-column {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.align-end {
+  align-items: end;
+}
+
+label,
+.tone-field {
+  display: grid;
+  gap: 9px;
+}
+
+label span,
+.tone-field > span {
+  color: var(--deep);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+input,
+select,
+textarea {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--ink);
+  outline: none;
+  padding: 13px 14px;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(36, 82, 74, 0.12);
+}
+
+.slider-line {
+  align-items: center;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr 64px;
+}
+
+input[type="range"] {
+  accent-color: var(--green);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.slider-line strong {
+  color: var(--deep);
+  text-align: right;
+}
+
+.tone-selector {
+  background: #edf4ef;
+  border: 1px solid rgba(36, 82, 74, 0.14);
+  border-radius: 8px;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 4px;
+}
+
+.tone-option {
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--green);
+  font-size: 0.88rem;
+  font-weight: 800;
+  min-height: 40px;
+  padding: 9px 8px;
+}
+
+.tone-option.is-selected {
+  background: var(--green);
+  color: var(--white);
+  box-shadow: 0 8px 18px rgba(36, 82, 74, 0.2);
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 2px;
+}
+
+.primary-button,
+.secondary-button,
+.copy-button {
+  border: 0;
+  border-radius: 8px;
+  font-weight: 900;
+  min-height: 46px;
+  padding: 12px 16px;
+}
+
+.primary-button {
+  background: var(--deep);
+  color: var(--white);
+  min-width: 190px;
+}
+
+.primary-button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.secondary-button {
+  background: var(--amber-soft);
+  color: #694711;
+}
+
+.copy-button {
+  background: var(--amber);
+  color: #2f210a;
+  min-width: 78px;
+}
+
+.result-card,
+.empty-result {
+  background: var(--white);
+  border: 1px solid rgba(23, 37, 34, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 16px 45px rgba(23, 37, 34, 0.1);
+  padding: 24px;
+}
+
+.empty-result {
+  min-height: 300px;
+}
+
+.result-header {
+  align-items: start;
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+}
+
+blockquote {
+  border-left: 4px solid var(--amber);
+  color: var(--deep);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+  line-height: 1.45;
+  margin: 16px 0 22px;
+  padding-left: 17px;
+}
+
+.result-insight,
+.result-warning {
+  border-radius: 8px;
+  padding: 15px 16px;
+}
+
+.result-insight {
+  background: #edf4ef;
+  margin-bottom: 12px;
+}
+
+.result-warning {
+  background: #fff1cf;
+}
+
+.error-message,
+.fallback-note {
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 800;
+  margin: 0;
+  padding: 12px 14px;
+}
+
+.error-message {
+  background: #fdebea;
+  color: #8a2f29;
+}
+
+.fallback-note {
+  background: #eaf3f5;
+  color: #285864;
+}
+
+@media (max-width: 920px) {
+  .app-shell {
+    padding: 14px;
+  }
+
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .workspace-panel,
+  .output-panel {
+    min-height: auto;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .two-column,
+  .tone-selector {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions,
+  .result-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .copy-button {
+    width: 100%;
+  }
+
+  blockquote {
+    font-size: 1.12rem;
+  }
+}

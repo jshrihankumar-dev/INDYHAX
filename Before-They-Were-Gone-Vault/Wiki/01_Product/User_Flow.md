@@ -7,7 +7,7 @@
 3. User fills in relationship context.
 4. User chooses a tone.
 5. User clicks generate.
-6. App calls Claude with a structured prompt.
+6. App calls the OpenAI API with a structured prompt.
 7. App displays the message, explanation, and warning.
 8. User copies the message.
 9. Toast confirms the message was copied.
@@ -27,4 +27,3 @@
 Before using the app: "I do not know what to say."
 
 After using the app: "This feels simple enough to actually send."
-

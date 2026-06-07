@@ -1,25 +1,21 @@
 Before They Were Gone — Full 2-Hour Build Plan (2 People)
 Split Responsibilities
 Person	Owns
-You (Shrihan)	Claude API logic, prompt engineering, state management
+You (Shrihan)	OpenAI API logic, prompt engineering, state management
 Teammate	UI/styling, input form, output display
 Work in the same repo. You build the brain, they build the face.
 
 Tech Stack
 Frontend: React
-AI: Claude API
+AI: OpenAI Responses API
 Styling: Tailwind CSS
 Extra: framer-motion for animations, react-hot-toast for notifications
 No backend — direct API calls, hardcode key for hackathon
 Setup (0:00 – 0:15) — Both Together
-npx create-react-app bridge
+Project already created in `bridge/`
 cd bridge
 npm install framer-motion react-hot-toast
-Then immediately split into two branches:
-
-git checkout -b shrihan/api-logic
-git checkout -b teammate/ui
-Merge at the 1:30 mark.
+Work from one shared branch and merge incrementally as features are ready.
 
 File Structure
 src/
@@ -30,7 +26,7 @@ src/
     ToneSelector.js    ← teammate
     BridgeVisual.js    ← teammate
   hooks/
-    useClaudeAPI.js    ← you
+    useOpenAIAPI.js    ← you
   utils/
     buildPrompt.js     ← you
     parseResponse.js   ← you
@@ -64,7 +60,7 @@ Context:
 - Time apart: ${duration}
   `;
 }
-Step 2: useClaudeAPI.js (0:30 – 1:00)
+Step 2: useOpenAIAPI.js (0:30 – 1:00)
 
 Custom hook that manages the full API call + state:
 
@@ -72,7 +68,7 @@ import { useState } from "react";
 import { buildPrompt } from "../utils/buildPrompt";
 import { parseResponse } from "../utils/parseResponse";
 
-export function useClaudeAPI() {
+export function useOpenAIAPI() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -81,18 +77,15 @@ export function useClaudeAPI() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
+      const response = await fetch("https://api.openai.com/v1/responses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": "YOUR_KEY_HERE",
-          "anthropic-version": "2023-06-01",
-          "anthropic-dangerous-direct-browser-access": "true"
+          "Authorization": "Bearer YOUR_OPENAI_API_KEY"
         },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          messages: [{ role: "user", content: buildPrompt(formData) }]
+          model: "gpt-5.1-chat-latest",
+          input: buildPrompt(formData)
         })
       });
       const data = await response.json();
@@ -109,11 +102,11 @@ export function useClaudeAPI() {
 }
 Step 3: parseResponse.js (1:00 – 1:15)
 
-Safely extracts the JSON from Claude's response:
+Safely extracts the JSON from the OpenAI response:
 
 export function parseResponse(data) {
   try {
-    const text = data.content[0].text;
+    const text = data.output_text || data.output?.[0]?.content?.[0]?.text || "";
     const clean = text.replace(/```json|```/g, "").trim();
     return JSON.parse(clean);
   } catch {
@@ -126,12 +119,12 @@ export function parseResponse(data) {
 }
 Step 4: Wire it into App.js (1:15 – 1:30)
 
-import { useClaudeAPI } from "./hooks/useClaudeAPI";
+import { useOpenAIAPI } from "./hooks/useOpenAIAPI";
 import InputForm from "./components/InputForm";
 import ResultCard from "./components/ResultCard";
 
 export default function App() {
-  const { result, loading, error, generate } = useClaudeAPI();
+  const { result, loading, error, generate } = useOpenAIAPI();
 
   return (
     <div className="app">
@@ -162,7 +155,7 @@ ToneSelector.js — 4 pill buttons (Warm / Casual / Formal / Humorous), updates 
 BridgeVisual.js — The wow factor. Simple SVG arc bridge that animates in when results load. Left side = you, right side = them, message floats across the arc. Framer motion fade-in. Keeps the theme visual and memorable for judges.
 
 Merge + Polish (1:30 – 1:50)
-Merge both branches, fix any prop mismatches
+Merge work directly into the shared branch, fix any prop mismatches
 Add react-hot-toast notification on copy ("Message copied — now send it")
 Pre-load a demo example so judges don't have to type
 Add a "Try an Example" button that auto-fills the form
