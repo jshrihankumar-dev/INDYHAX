@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import ToneSelector from "./ToneSelector";
 
 const durationOptions = [
@@ -11,7 +12,7 @@ const durationOptions = [
 ];
 
 export const exampleScenario = {
-  name: "Childhood best friend",
+  name: "Maya",
   relationship: "Friend",
   closeness: 9,
   reason: "Moved away and stopped texting regularly",
@@ -27,6 +28,25 @@ export const emptyForm = {
   duration: "A few months",
   tone: "Warm",
 };
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08 }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+};
+
+const fieldHints = [
+  "Specific memory",
+  "No pressure",
+  "Short enough to send",
+];
 
 export default function InputForm({
   formData,
@@ -48,65 +68,96 @@ export default function InputForm({
   };
 
   return (
-    <form className="input-form" onSubmit={handleSubmit}>
-      <div className="form-row two-column">
-        <label>
+    <motion.form 
+      className="input-form" 
+      onSubmit={handleSubmit}
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+    >
+      <motion.div className="form-intelligence" variants={itemVariants}>
+        <div>
+          <div className="mono">Message recipe</div>
+          <p>Context in, low-pressure draft out. No contact info required.</p>
+        </div>
+        <div className="recipe-pills">
+          {fieldHints.map((hint) => (
+            <span key={hint}>{hint}</span>
+          ))}
+        </div>
+      </motion.div>
+
+      <motion.div variants={itemVariants} className="form-grid two">
+        <label className="form-label">
           <span>Person</span>
           <input
             autoComplete="off"
+            className="form-input"
             onChange={(event) => updateField("name", event.target.value)}
-            placeholder="Childhood best friend"
+            placeholder="Maya, cousin, old teammate"
             required
             type="text"
             value={formData.name}
+            id="input-person-name"
           />
         </label>
 
-        <label>
+        <label className="form-label">
           <span>Relationship</span>
           <input
             autoComplete="off"
+            className="form-input"
             onChange={(event) => updateField("relationship", event.target.value)}
             placeholder="Friend, cousin, teammate"
             required
             type="text"
             value={formData.relationship}
+            id="input-relationship-type"
           />
         </label>
-      </div>
+      </motion.div>
 
-      <label className="form-row">
-        <span>How close were you?</span>
-        <div className="slider-line">
-          <input
-            aria-label="Closeness from 1 to 10"
-            max="10"
-            min="1"
-            onChange={(event) => updateField("closeness", event.target.value)}
-            type="range"
-            value={formData.closeness}
+      <motion.div variants={itemVariants}>
+        <label className="form-label">
+          <span>How close were you?</span>
+          <div className="slider-container">
+            <input
+              aria-label="Closeness from 1 to 10"
+              max="10"
+              min="1"
+              onChange={(event) => updateField("closeness", event.target.value)}
+              type="range"
+              value={formData.closeness}
+              id="input-closeness-slider"
+            />
+            <strong>{formData.closeness}/10</strong>
+          </div>
+        </label>
+      </motion.div>
+
+      <motion.div variants={itemVariants}>
+        <label className="form-label">
+          <span>Why did you drift?</span>
+          <textarea
+            className="form-textarea"
+            onChange={(event) => updateField("reason", event.target.value)}
+            placeholder="Moved away and stopped texting..."
+            required
+            rows="3"
+            value={formData.reason}
+            id="input-drift-reason"
           />
-          <strong>{formData.closeness}/10</strong>
-        </div>
-      </label>
+        </label>
+      </motion.div>
 
-      <label className="form-row">
-        <span>Why did you drift?</span>
-        <textarea
-          onChange={(event) => updateField("reason", event.target.value)}
-          placeholder="Moved away and stopped texting regularly"
-          required
-          rows="4"
-          value={formData.reason}
-        />
-      </label>
-
-      <div className="form-row two-column align-end">
-        <label>
+      <motion.div variants={itemVariants} className="form-grid two align-end">
+        <label className="form-label">
           <span>Time apart</span>
           <select
+            className="form-select"
             onChange={(event) => updateField("duration", event.target.value)}
             value={formData.duration}
+            id="input-time-apart"
           >
             {durationOptions.map((duration) => (
               <option key={duration} value={duration}>
@@ -116,23 +167,23 @@ export default function InputForm({
           </select>
         </label>
 
-        <div className="tone-field">
+        <div className="form-label">
           <span>Tone</span>
           <ToneSelector
             onChange={(tone) => updateField("tone", tone)}
             value={formData.tone}
           />
         </div>
-      </div>
+      </motion.div>
 
-      <div className="form-actions">
-        <button className="secondary-button" onClick={onExample} type="button">
-          Try an Example
+      <motion.div variants={itemVariants} className="form-actions">
+        <button className="btn btn-soft" onClick={onExample} type="button" id="btn-autofill-example">
+          Try example
         </button>
-        <button className="primary-button" disabled={loading} type="submit">
-          {loading ? "Building the bridge..." : "Generate Message"}
+        <button className="btn btn-primary" style={{ flex: 1 }} disabled={loading} type="submit" id="btn-submit-generate">
+          {loading ? "Drafting..." : "Generate draft"}
         </button>
-      </div>
-    </form>
+      </motion.div>
+    </motion.form>
   );
 }

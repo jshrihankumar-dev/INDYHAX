@@ -10,18 +10,21 @@ export function useOpenAIAPI() {
   const [error, setError] = useState("");
   const [usedFallback, setUsedFallback] = useState(false);
 
-  const generate = async (formData) => {
+  const generateMessage = async (formData) => {
     setLoading(true);
     setError("");
     setUsedFallback(false);
 
     if (!apiKey) {
-      window.setTimeout(() => {
-        setResult(buildDemoResult(formData));
-        setUsedFallback(true);
-        setLoading(false);
-      }, 450);
-      return;
+      return new Promise((resolve) => {
+        window.setTimeout(() => {
+          const fallback = buildDemoResult(formData);
+          setResult(fallback);
+          setUsedFallback(true);
+          setLoading(false);
+          resolve(fallback);
+        }, 450);
+      });
     }
 
     try {
@@ -42,15 +45,28 @@ export function useOpenAIAPI() {
       }
 
       const data = await response.json();
-      setResult(parseResponse(data));
+      const parsed = parseResponse(data);
+      setResult(parsed);
+      return parsed;
     } catch (err) {
       setError("The live API was unavailable, so this demo used a local backup.");
-      setResult(buildDemoResult(formData));
+      const fallback = buildDemoResult(formData);
+      setResult(fallback);
       setUsedFallback(true);
+      return fallback;
     } finally {
       setLoading(false);
     }
   };
 
-  return { error, generate, loading, result, usedFallback };
+  return {
+    error,
+    generate: generateMessage,
+    generateMessage,
+    loading,
+    result,
+    usedFallback,
+  };
 }
+
+export default useOpenAIAPI;
